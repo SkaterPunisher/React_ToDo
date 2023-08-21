@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Todo from './components/Todo/Todo';
 import { TodoTypes } from './types/Todo';
-import { generateKey } from './utils/generateKey';
+import Input from './components/Input/Input';
 
 function App() {
   const [value, setValue] = useState('');
@@ -9,28 +9,11 @@ function App() {
 
   return (
     <>
-      <div>
-        <input
-          type='text'
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
-        />
-        <button
-          onClick={() =>
-            setData([
-              ...data,
-              { checked: false, value: value, id: generateKey(10) },
-            ])
-          }
-        >
-          Add
-        </button>
-      </div>
-      <div>
-        {data.map((todo) => {
-          return <Todo key={todo.id} todo={todo} setData={setData} />;
-        })}
-      </div>
+      <Input value={value} setValue={setValue} setData={setData} />
+
+      {data.map((todo) => {
+        return <Todo key={todo.id} todo={todo} setData={setData} />;
+      })}
     </>
   );
 }
